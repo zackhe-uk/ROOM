@@ -43,7 +43,7 @@
 #include <errno.h>
 
 // Linux voxware output.
-#include <linux/soundcard.h>
+//#include <linux/soundcard.h>
 
 // Timer stuff. Experimental.
 #include <time.h>
@@ -62,8 +62,8 @@
 // UNIX hack, to be removed.
 #ifdef SNDSERV
 // Separate sound server process.
-FILE*	sndserver=0;
-char*	sndserver_filename = "./sndserver ";
+FILE*	sndserver = 0;
+char*	sndserver_filename = "./sndserver";
 #elif SNDINTR
 
 // Update all 30 millisecs, approx. 30fps synchronized.
@@ -199,7 +199,7 @@ getsfx
     
     // Get the sound data from the WAD, allocate lump
     //  in zone memory.
-    sprintf(name, "ds%s", sfxname);
+    snprintf(name, sizeof(name), "ds%s", sfxname);
 
     // Now, there is a severe problem with the
     //  sound handling, in it is not (yet/anymore)

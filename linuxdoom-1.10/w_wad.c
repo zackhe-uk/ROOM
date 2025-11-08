@@ -30,7 +30,11 @@
 #include <sys/types.h>
 #include <string.h>
 #include <unistd.h>
+#ifndef __APPLE__
 #include <malloc.h>
+#else
+#include <stdlib.h>
+#endif
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <alloca.h>

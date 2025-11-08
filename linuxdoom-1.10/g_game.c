@@ -453,7 +453,7 @@ void G_DoLoadLevel (void)
 
     // DOOM determines the sky texture to be used
     // depending on the current episode, and the game version.
-    if ( (gamemode == commercial)
+    if ( gamemode == commercial
 /*	 || ( gamemode == pack_tnt )
 	 || ( gamemode == pack_plut )*/ )
     {

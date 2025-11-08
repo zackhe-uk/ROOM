@@ -658,30 +658,31 @@ S_ChangeMusic
     {
 	I_Error("Bad music number %d", musicnum);
     }
-    else
+    else {
 	music = &S_music[musicnum];
 
-    if (mus_playing == music)
-	return;
+        if (mus_playing == music)
+            return;
 
-    // shutdown old music
-    S_StopMusic();
+        // shutdown old music
+        S_StopMusic();
 
-    // get lumpnum if neccessary
-    if (!music->lumpnum)
-    {
-	sprintf(namebuf, "d_%s", music->name);
-	music->lumpnum = W_GetNumForName(namebuf);
+        // get lumpnum if neccessary
+        if (!music->lumpnum)
+        {
+            sprintf(namebuf, "d_%s", music->name);
+	    music->lumpnum = W_GetNumForName(namebuf);
+        }
+
+        // load & register it
+        music->data = (void *) W_CacheLumpNum(music->lumpnum, PU_MUSIC);
+        music->handle = I_RegisterSong(music->data);
+
+        // play it
+        I_PlaySong(music->handle, looping);
+
+       mus_playing = music;
     }
-
-    // load & register it
-    music->data = (void *) W_CacheLumpNum(music->lumpnum, PU_MUSIC);
-    music->handle = I_RegisterSong(music->data);
-
-    // play it
-    I_PlaySong(music->handle, looping);
-
-    mus_playing = music;
 }
 
 

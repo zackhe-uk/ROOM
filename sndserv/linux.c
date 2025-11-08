@@ -50,8 +50,9 @@
 
 #include "soundsrv.h"
 
-int	audio_fd;
-
+int            audio_fd;
+pa_simple*     audio_s;
+pa_sample_spec audio_ss;
 void
 myioctl
 ( int	fd,
@@ -110,22 +111,20 @@ I_InitSound
     else
         fprintf(stderr, "Cannot play signed 16 data!\n");
 #else
-    pa_simple *s;
-    pa_sample_spec ss;
- 
-    ss.format = PA_SAMPLE_S16LE;
-    ss.channels = 2;
-    ss.rate = samplerate;
 
-    s = pa_simple_new(NULL,               // Use the default server.
-                      "ROOM",           // Our application's name.
+    audio_ss.format = PA_SAMPLE_S16LE;
+    audio_ss.channels = 2;
+    audio_ss.rate = samplerate;
+
+    audio_s = pa_simple_new(NULL,         // Use the default server.
+                      "ROOM",             // Our application's name.
                       PA_STREAM_PLAYBACK,
                       NULL,               // Use the default device.
                       "Music",            // Description of our stream.
-                      &ss,                // Our sample format.
+                      &audio_ss,          // Our sample format.
                       NULL,               // Use default channel map
                       NULL,               // Use default buffering attributes.
-                      NULL               // Ignore error code.
+                      NULL                // Ignore error code.
     );
 #endif
 }
@@ -137,6 +136,8 @@ I_SubmitOutputBuffer
 {
 #ifdef USE_OSS
     write(audio_fd, samples, samplecount*4);
+#else
+    pa_simple_write(audio_s, samples, samplecount * 4, NULL);
 #endif
 }
 
@@ -144,6 +145,8 @@ void I_ShutdownSound(void)
 {
 #ifdef USE_OSS
     close(audio_fd);
+#else
+    pa_simple_free(audio_s);
 #endif
 }
 

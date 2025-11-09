@@ -39,6 +39,7 @@
 #define MIXBUFFERSIZE	(SAMPLECOUNT*2*2)
 #define SPEED			11025
 
+#define SS_MIXCHAN 8
 
 void I_InitMusic(void);
 

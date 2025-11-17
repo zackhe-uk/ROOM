@@ -213,7 +213,7 @@ void R_InitSpriteDefs (char** namelist)
 	
 	// scan the lumps,
 	//  filling in the frames for whatever is found
-	for (l=start+1 ; l<end ; l++)
+	for (l = start + 1; l < end; l++)
 	{
 	    if (*(int *)lumpinfo[l].name == intname)
 	    {
@@ -503,7 +503,7 @@ void R_ProjectSprite (mobj_t* thing)
     
     // decide which patch to use for sprite relative to player
 #ifdef RANGECHECK
-    if ((int)thing->sprite >= numsprites)
+    if (thing->sprite >= numsprites)
 	I_Error ("R_ProjectSprite: invalid sprite number %i ",
 		 thing->sprite);
 #endif

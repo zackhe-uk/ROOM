@@ -2,14 +2,11 @@
 ### _Ready DOOM_
 
 > [!CAUTION]
-> The main DOOM codebase, in it's current state, is COMPLETELY untested.
+> The main DOOM codebase, in it's current state, is partially untested.
 >
-> Due to macOS limitations and Linux deprecations, it will not
-> be tested until I finish moving the video handling Linuxdoom
-> code to SDL2 or SDL3.
->
-> I've already done that a while back [here](https://github.com/doom-em/sdl_doom_em/blob/master/i_sdl_video.c) based on [this](https://github.com/aserebryakov/sdl_doom)
-> but that was pretty shitty and it's probably due for a rewrite.
+> Due to macOS limitations and me just generally
+> being scared of C memory problems, I currently
+> only test it under Emscripten.
 
 ROOM is a Linuxdoom fork that aims to fix bugs,
 while mainly keeping the structure of the code
@@ -20,11 +17,11 @@ the same, helping experienced modders be familliar.
 
 **TODOs**:
 
-- move from X11 to SDL2 for display
-
+- sndserver on emscripten
 
 **Changes**:
 
+- SDL3 support (ONLY bleeding edge builds, unfortunately some functions I use are not yet in stable)
 - supressed/fixed most warnings
 - PulseAudio sndserver with optional OSS (`-DUSE_OSS` in `CFLAGS`)
 - misc sndserver improvements

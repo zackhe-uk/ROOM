@@ -35,7 +35,16 @@
 short	SwapSHORT(short);
 long	SwapLONG(long);
 #define SHORT(x)	((short)SwapSHORT((unsigned short) (x)))
+
+#ifdef ENV32
+long	SwapLONG(long);
 #define LONG(x)         ((long)SwapLONG((unsigned long) (x)))
+#else
+int	SwapLONG(int);
+#define LONG(x)         ((int)SwapLONG((unsigned int) (x)))
+#endif
+
+
 #else
 #define SHORT(x)	(x)
 #define LONG(x)         (x)

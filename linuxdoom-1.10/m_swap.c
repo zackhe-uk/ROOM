@@ -37,17 +37,22 @@
 unsigned short SwapSHORT(unsigned short x)
 {
     // No masking with 0xFF should be necessary. 
-    return (x>>8) | (x<<8);
+    return (x >> 8) |
+		   (x << 8);
 }
 
 // Swapping 32bit.
-unsigned long SwapLONG( unsigned long x)
+#ifdef ENV32
+unsigned long SwapLONG( unsigned long x )
+#else
+unsigned int SwapLONG( unsigned int x )
+#endif
 {
     return
-	(x>>24)
-	| ((x>>8) & 0xff00)
-	| ((x<<8) & 0xff0000)
-	| (x<<24);
+	   (x >> 24)
+	| ((x >>  8) & 0xff00)
+	| ((x <<  8) & 0xff0000)
+	|  (x << 24);
 }
 
 

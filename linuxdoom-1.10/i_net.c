@@ -51,12 +51,19 @@
 
 #ifndef __APPLE__
 // For some odd reason...
+#ifdef ENV32
 #define ntohl(x) \
         ((unsigned long int)((((unsigned long int)(x) & 0x000000ffU) << 24) | \
                              (((unsigned long int)(x) & 0x0000ff00U) <<  8) | \
                              (((unsigned long int)(x) & 0x00ff0000U) >>  8) | \
                              (((unsigned long int)(x) & 0xff000000U) >> 24)))
-
+#else
+#define ntohl(x) \
+        ((unsigned int)((((unsigned int)(x) & 0x000000ffU) << 24) | \
+                        (((unsigned int)(x) & 0x0000ff00U) <<  8) | \
+                        (((unsigned int)(x) & 0x00ff0000U) >>  8) | \
+                        (((unsigned int)(x) & 0xff000000U) >> 24)))
+#endif
 #define ntohs(x) \
         ((unsigned short int)((((unsigned short int)(x) & 0x00ff) << 8) | \
                               (((unsigned short int)(x) & 0xff00) >> 8))) \

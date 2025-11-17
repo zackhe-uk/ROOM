@@ -1147,12 +1147,21 @@ typedef enum
 typedef struct
 {
   spritenum_t	sprite;
+#ifdef ENV32
   long			frame;
   long			tics;
+#else
+  int    		frame;
+  int    		tics;
+#endif
   // void		(*action) ();
   actionf_t			action;
   statenum_t			nextstate;
+#ifdef ENV32
   long			misc1, misc2;
+#else
+  int 			misc1, misc2;
+#endif
 } state_t;
 
 extern state_t	states[NUMSTATES];

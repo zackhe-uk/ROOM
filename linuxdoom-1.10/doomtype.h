@@ -33,14 +33,22 @@ typedef unsigned char byte;
 
 #ifndef __PTRINT__
 #define __PTRINT__
+
 #if defined(__x86_64__) || defined(__ppc64__) || defined(__arm64__)
+
 #include <stdint.h>
 typedef intptr_t ptrint;
 typedef uintptr_t uptrint;
 
 #else
+
+// useful, tells it how to compile
+#define ENV32
 typedef int ptrint;
+typedef unsigned int uptrint;
+
 #endif
+
 #endif
 
 
@@ -53,13 +61,23 @@ typedef int ptrint;
 
 // Max pos 32-bit int.
 #define MAXINT		((int)0x7fffffff)
+#ifdef ENV32
 #define MAXLONG		((long)0x7fffffff)
+#else
+#define MAXLONG		MAXINT
+#endif
+
 #define MINCHAR		((char)0x80)
 #define MINSHORT	((short)0x8000)
 
 // Max negative 32-bit integer.
 #define MININT		((int)0x80000000)
+#ifdef ENV32
 #define MINLONG		((long)0x80000000)
+#else
+#define MINLONG		MININT
+#endif
+
 #endif
 
 

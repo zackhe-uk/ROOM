@@ -44,7 +44,11 @@ FixedMul
 ( fixed_t	a,
   fixed_t	b )
 {
+#ifdef ENV32
     return ((long long) a * (long long) b) >> FRACBITS;
+#else
+    return ((long) a * (long) b) >> FRACBITS;
+#endif
 }
 
 
@@ -58,8 +62,8 @@ FixedDiv
 ( fixed_t	a,
   fixed_t	b )
 {
-    if ( (abs(a)>>14) >= abs(b))
-	return (a^b)<0 ? MININT : MAXINT;
+    if ( (abs(a) >> 14) >= abs(b))
+	return (a ^ b) < 0 ? MININT : MAXINT;
     return FixedDiv2 (a,b);
 }
 

@@ -130,9 +130,9 @@ char		mapdir[1024];           // directory of development maps
 char		basedefault[1024];      // default file
 
 
-void D_CheckNetGame (void);
+void D_CheckNetGame  (void);
 void D_ProcessEvents (void);
-void G_BuildTiccmd (ticcmd_t* cmd);
+void G_BuildTiccmd   (ticcmd_t* cmd);
 void D_DoAdvanceDemo (void);
 
 
@@ -351,7 +351,7 @@ void D_Display (void)
 
 // internal function to do the doom loop
 #ifndef EMSCRIPTEN
-static void D_DoDoomLoop()
+static void D_DoDoomLoop(void)
 #else
 static bool D_DoDoomLoop(double time, void *userData)
 #endif

@@ -164,14 +164,13 @@ myioctl
   int*	arg )
 {   
     int		rc;
-    extern int	errno;
     
     rc = ioctl(fd, command, arg);  
     if (rc < 0)
     {
-	fprintf(stderr, "ioctl(dsp,%d,arg) failed\n", command);
-	fprintf(stderr, "errno=%d\n", errno);
-	exit(-1);
+      fprintf(stderr, "ioctl(dsp,%d,arg) failed\n", command);
+      fprintf(stderr, "errno=%d\n", errno);
+      exit(-1);
     }
 }
 
@@ -394,7 +393,7 @@ addsfx
 // version.
 // See soundserver initdata().
 //
-void I_SetChannels()
+void I_SetChannels(void)
 {
   // Init internal lookups (raw data, mixing buffer, channels).
   // This function sets up internal lookups used during
@@ -736,7 +735,7 @@ void I_ShutdownSound(void)
 
 
 void
-I_InitSound()
+I_InitSound(void)
 { 
 #ifdef SNDSERV
   char buffer[256];
@@ -978,7 +977,7 @@ int I_SoundSetTimer( int duration_of_tick )
 
 
 // Remove the interrupt. Set duration to zero.
-void I_SoundDelTimer()
+void I_SoundDelTimer(void)
 {
   // Debug.
   if ( I_SoundSetTimer( 0 ) == -1)

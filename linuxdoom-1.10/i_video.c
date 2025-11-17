@@ -1047,4 +1047,7 @@ Expand4
     } while (y--);
 }
 
+#else
+void lookMomATranslationUnit(void)
+{}
 #endif

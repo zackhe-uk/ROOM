@@ -120,7 +120,7 @@ int xlatekey(SDL_Event *event)
 		case SDLK_RALT:
 
 		default:
-			if (rc >= SDLK_SPACE && rc <= SDLK_DELETE)
+			if (rc >= (int)SDLK_SPACE && rc <= (int)SDLK_DELETE)
 				rc = rc - SDLK_SPACE + ' ';
 			if (rc >= 'A' && rc <= 'Z')
 				rc = rc - 'A' + 'a';

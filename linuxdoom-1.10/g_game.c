@@ -350,55 +350,55 @@ void G_BuildTiccmd (ticcmd_t* cmd)
 	forward += forwardmove[speed];
     
     // forward double click
-    if (mousebuttons[mousebforward] != dclickstate && dclicktime > 1 ) 
+    if ((int)mousebuttons[mousebforward] != dclickstate && dclicktime > 1 ) 
     { 
-	dclickstate = mousebuttons[mousebforward]; 
-	if (dclickstate) 
-	    dclicks++; 
-	if (dclicks == 2) 
-	{ 
-	    cmd->buttons |= BT_USE; 
-	    dclicks = 0; 
-	} 
-	else 
-	    dclicktime = 0; 
+        dclickstate = mousebuttons[mousebforward]; 
+        if (dclickstate) 
+            dclicks++; 
+        if (dclicks == 2) 
+        { 
+            cmd->buttons |= BT_USE; 
+            dclicks = 0; 
+        } 
+        else 
+            dclicktime = 0; 
     } 
     else 
     { 
-	dclicktime += ticdup; 
-	if (dclicktime > 20) 
-	{ 
-	    dclicks = 0; 
-	    dclickstate = 0; 
-	} 
+        dclicktime += ticdup; 
+        if (dclicktime > 20) 
+        { 
+            dclicks = 0; 
+            dclickstate = 0; 
+        } 
     }
     
     // strafe double click
     bstrafe =
 	mousebuttons[mousebstrafe] 
 	|| joybuttons[joybstrafe]; 
-    if (bstrafe != dclickstate2 && dclicktime2 > 1 ) 
-    { 
-	dclickstate2 = bstrafe; 
-	if (dclickstate2) 
-	    dclicks2++; 
-	if (dclicks2 == 2) 
-	{ 
-	    cmd->buttons |= BT_USE; 
-	    dclicks2 = 0; 
-	} 
-	else 
-	    dclicktime2 = 0; 
-    } 
+    if ((int)bstrafe != dclickstate2 && dclicktime2 > 1 )
+    {
+        dclickstate2 = bstrafe;
+        if (dclickstate2)
+            dclicks2++;
+        if (dclicks2 == 2)
+        {
+            cmd->buttons |= BT_USE;
+            dclicks2 = 0;
+        }
+        else
+            dclicktime2 = 0;
+    }
     else 
     { 
-	dclicktime2 += ticdup; 
-	if (dclicktime2 > 20) 
-	{ 
-	    dclicks2 = 0; 
-	    dclickstate2 = 0; 
-	} 
-    } 
+        dclicktime2 += ticdup; 
+        if (dclicktime2 > 20) 
+        { 
+            dclicks2 = 0; 
+            dclickstate2 = 0; 
+        }
+    }
  
     forward += mousey; 
     if (strafe) 

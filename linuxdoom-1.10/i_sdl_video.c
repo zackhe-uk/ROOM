@@ -362,7 +362,7 @@ void I_InitGraphics(void)
 
     // create the palette
     S_pal = SDL_CreatePalette(256);
-	if(S_pal == NULL)
+	if (S_pal == NULL)
 	{
 		I_Error("Couldn't create palette: %s\n", SDL_GetError());
 		return;
@@ -392,13 +392,18 @@ void I_InitGraphics(void)
 
 
 	image = SDL_CreateTexture(S_renderer, SDL_PIXELFORMAT_INDEX8, SDL_TEXTUREACCESS_STREAMING, S_width, S_height);
-	if(image == NULL)
+	if (image == NULL)
 	{
 		I_Error("Couldn't create texture: %s\n", SDL_GetError());
 		return;
 	}
 
-	if(!SDL_SetTexturePalette(image, S_pal   ))
+	if (SDL_SetTextureScaleMode(image, SDL_SCALEMODE_NEAREST))
+	{
+		fprintf(stderr, "Setting scale mode failed! %s\n", SDL_GetError());
+	}
+
+	if (!SDL_SetTexturePalette(image, S_pal   ))
 	{
 		I_Error("Couldn't set texture palette: %s\n", SDL_GetError());
 		return;

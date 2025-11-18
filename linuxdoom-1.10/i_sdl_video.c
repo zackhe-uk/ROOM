@@ -330,7 +330,14 @@ void I_InitGraphics(void)
 		return;
 	}
 			
-	if (!SDL_CreateWindowAndRenderer("Ready DOOM", S_width, S_height, SDL_WINDOW_RESIZABLE, &S_window, &S_renderer))
+	if (!SDL_CreateWindowAndRenderer("Ready DOOM", S_width, S_height,
+#ifndef EMSCRIPTEN
+		SDL_WINDOW_RESIZABLE,
+#else
+		SDL_WINDOW_FULLSCREEN,
+#endif
+		&S_window, &S_renderer
+	))
 	{
         I_Error("Couldn't create window/renderer: %s\n", SDL_GetError());
         return;

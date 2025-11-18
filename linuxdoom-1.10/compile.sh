@@ -8,7 +8,7 @@ then
 	"  -debug: compiles a debug build" \
 	"  -8/-4: forces what arch to compile for" \
 	"  -em: build for emscripten " \
-        "   clean: clean up the build dir" \
+    "   clean: clean up the build dir" \
     exit 0
 fi
 
@@ -22,39 +22,48 @@ fi
 mkdir -p bin
 
 echo "${CC:=gcc}" > /dev/null
+echo "${EXOUT:=bin/doom}" > /dev/null
 
 # brand new things
 for var in "$@"
 do
     if [[ "$var" == "-debug" ]]
     then
-        EXTRAOPT="-g $EXTRAOPT"
+        PREXTRAOPT="-g $PREXTRAOPT"
     fi
 
     if [[ "$var" == "-8" ]]
     then
-        EXTRAOPT="$EXTRAOPT -m64"
+        PREXTRAOPT="$PREXTRAOPT -m64"
 
     elif [[ "$var" == "-4" ]]
     then
-        EXTRAOPT="$EXTRAOPT -m32"
+        PREXTRAOPT="$PREXTRAOPT -m32"
     fi
 
     if [[ "$var" == "-em" ]]
     then
         if [ ! -f ./doom1.wad ]; then ../getdoom.sh; fi
-        if [[ "$EXTRAOPT" == *"-m64"* ]]
+        if [[ "$PREXTRAOPT" == *"-m64"* ]]
         then
-            EXTRAOPT="$EXTRAOPT -sMEMORY64 -Wl,-mwasm64"
+            PREXTRAOPT="$PREXTRAOPT -sMEMORY64 -Wl,-mwasm64"
         fi
-        EXTRAOPT="$EXTRAOPT --embed-file ./doom1.wad@doom1.wad"
+        EXTRAOPT="$EXTRAOPT --embed-file ./doom1.wad@doom1.wad --shell-file ./shell.html"
         CC=emcc
     fi
 
     if [[ "$var" == "-mcem" ]]
     then
-        EXTRAOPT="$EXTRAOPT -L../../SDL/build -I../../SDL/include"
+        if [[ "$PREXTRAOPT" == *"-m64"* ]]
+        then
+            EXTRAOPT="$EXTRAOPT -L../../SDL/build"
+            EXOUT="bin/doom.html"
+        else
+            EXTRAOPT="$EXTRAOPT -L../../SDL32/build"
+            EXOUT="bin/doom32.html"
+        fi
+        EXTRAOPT="$EXTRAOPT -I../../SDL/include"
     fi
 done
 
-$CC $EXTRAOPT -DNORMALUNIX -DLINUX -DUSE_SDL -lSDL3 -lm -o doom
+$CC *.c $PREXTRAOPT -DNORMALUNIX -DLINUX -DUSE_SDL $EXTRAOPT -lSDL3 -lm -o "$EXOUT"

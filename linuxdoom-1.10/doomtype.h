@@ -34,7 +34,7 @@ typedef unsigned char byte;
 #ifndef __PTRINT__
 #define __PTRINT__
 
-#if defined(__x86_64__) || defined(__ppc64__) || defined(__arm64__)
+#if defined(__x86_64__) || defined(__ppc64__) || defined(__arm64__) || defined(__wasm64__)
 
 #include <stdint.h>
 typedef intptr_t ptrint;

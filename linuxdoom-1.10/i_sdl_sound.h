@@ -20,18 +20,11 @@
 //
 //-----------------------------------------------------------------------------
 
-#ifndef USE_SDL_SOUND
 #ifndef __I_SOUND__
 #define __I_SOUND__
 
 #include "doomdef.h"
 
-// UNIX hack, to be removed.
-#ifdef SNDSERV
-#include <stdio.h>
-extern FILE* sndserver;
-extern char* sndserver_filename;
-#endif
 
 #include "doomstat.h"
 #include "sounds.h"
@@ -114,12 +107,6 @@ void I_StopSong(int handle);
 void I_UnRegisterSong(int handle);
 
 
-
-#endif
-
-#else
-
-#include "i_sdl_sound.h"
 
 #endif
 //-----------------------------------------------------------------------------

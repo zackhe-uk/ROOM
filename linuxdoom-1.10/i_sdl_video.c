@@ -22,6 +22,7 @@
 //-----------------------------------------------------------------------------
 
 //static const char rcsid[] = "$Id: i_x.c,v 1.6 1997/02/03 22:45:10 b1 Exp $";
+#ifdef USE_SDL
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -381,3 +382,5 @@ void I_InitGraphics(void)
 	screens[0] = (unsigned char *) malloc(S_width * S_height);
 
 }
+
+#endif
